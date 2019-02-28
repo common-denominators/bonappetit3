@@ -47,8 +47,16 @@ module.exports = function (sequelize, DataTypes) {
                 min: 6
             }
         }
+        
     })
 
-    
+    User.associate = function(models) {
+        User.hasMany(models.Group, {
+            foreignKey: {
+                allowNull: false
+            }
+        });
+    }
+
     return User;
 }
