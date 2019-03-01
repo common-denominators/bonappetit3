@@ -6,13 +6,18 @@ var $phone = $("#phone");
 var $email = $("#email");
 var $password = $("#password");
 var $passwordConfirm = $("#passwordConfirm");
-var $exampleDescription = $("#example-description");
-var $submitBtn = $("#submit");
+var $submitBtn = $("#newUserSubmit");
 var $exampleList = $("#example-list");
+var $groupName = $("#groupName");
+var $date = $("#date");
+var $restaurant = $("#restaurant");
+var $runner = $("#runner");
+var $newUserButton = $("#newUserButton");
+var $newOrderButton = $("#newOrderButton")
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(user) {
+  saveUser: function(user) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -20,6 +25,16 @@ var API = {
       type: "POST",
       url: "api/users",
       data: JSON.stringify(user)
+    });
+  },
+  saveOrderGroup: function(orderGroup) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/order",
+      data: JSON.stringify(orderGroup)
     });
   },
   getExamples: function() {
@@ -37,7 +52,7 @@ var API = {
 };
 
 // refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
+var refreshUser = function() {
   API.getExamples().then(function(data) {
     var $user = data.map(function(user) {
       var $a = $("<a>")
@@ -67,7 +82,7 @@ var refreshExamples = function() {
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
-var handleFormSubmit = function(event) {
+var newUserSubmit = function(event) {
   event.preventDefault();
 
   var user = {
@@ -85,8 +100,8 @@ var handleFormSubmit = function(event) {
     return;
   }
 
-  API.saveExample(user).then(function() {
-    refreshExamples();
+  API.saveUser(user).then(function() {
+    refreshUser();
   });
 
     $username.val("");
@@ -97,6 +112,32 @@ var handleFormSubmit = function(event) {
     $password.val("");
 };
 
+var orderGroupSubmit = function(event) {
+  event.preventDefault();
+
+  var orderGroup = {
+    
+    ordername: $groupName.val().trim(),
+    orderDate: $orderDate.val().trim(),
+    restaurant: $restaurant.val().trim(),
+    runner: $runner.val().trim()
+  };
+
+  if (!orderGroup.ordername) {
+    alert("You must enter an order name!");
+    return;
+  }
+
+  API.saveOrderGroup(orderGroup).then(function() {
+    refreshUser();
+  });
+
+    $groupName.val("");
+    $orderDate.val("");
+    $restaurant.val("");
+    $runner.val("");
+};
+
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
 var handleDeleteBtnClick = function() {
@@ -105,10 +146,11 @@ var handleDeleteBtnClick = function() {
     .attr("data-id");
 
   API.deleteExample(idToDelete).then(function() {
-    refreshExamples();
+    refreshUser();
   });
 };
 
 // Add event listeners to the submit and delete buttons
-$submitBtn.on("click", handleFormSubmit);
+$newUserButton.on("click");
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
+$newOrderButton.on("click", orderGroupSubmit);
