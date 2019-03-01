@@ -20,6 +20,12 @@ module.exports = function(app) {
     });
   });
 
+  app.post("/api/order", function(req, res) {
+    db.OrderGroup.create(req.body).then(function(dbOrders) {
+      res.json(dbOrders);
+    });
+  });
+
   // Delete an example by id
   // app.get("/api/users/:id", function(req, res) {
   //   db.User.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
