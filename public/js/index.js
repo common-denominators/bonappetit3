@@ -13,6 +13,7 @@ var $date = $("#date");
 var $restaurant = $("#restaurant");
 var $runner = $("#runner");
 var $newUserButton = $("#newUserButton");
+var $newUserSubmitBtn = $("#newUserSubmitBtn")
 var $newOrderButton = $("#newOrderButton")
 
 // The API object contains methods for each kind of request we'll make
@@ -150,7 +151,10 @@ var handleDeleteBtnClick = function() {
   });
 };
 
-// Add event listeners to the submit and delete buttons
+// This is the listener for the home page
 $newUserButton.on("click");
+//This is the listener for the new user submit button
+$newUserSubmitBtn.on("click", newUserSubmit);
+
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
 $newOrderButton.on("click", orderGroupSubmit);
