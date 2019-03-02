@@ -47,7 +47,7 @@ var API = {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/orderdetail",
+      url: "../api/orderdetail",
       data: JSON.stringify(orderDetail)
     });
   },

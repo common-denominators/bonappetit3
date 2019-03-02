@@ -50,13 +50,13 @@ module.exports = function (sequelize, DataTypes) {
         
     })
 
-    User.associate = function(models) {
-        User.hasMany(models.Group, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
-    }
+    // User.associate = function(models) {
+    //     User.hasMany(models.Group, {
+    //         foreignKey: {
+    //             allowNull: false
+    //         }
+    //     });
+    // }
 
     return User;
 }
