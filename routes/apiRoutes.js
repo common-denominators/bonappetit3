@@ -15,11 +15,17 @@ module.exports = function(app) {
   });
   //Create a new order Group
   app.post("/api/order", function(req, res) {
-    db.OrderGroup.create(req.body).then(function({dataValues}) {
+    db.OrderGroup.create(req.body).then(function() {
       res.status(200).json({});
     });
   });
 
+    //Create a new order detail
+    app.post("/api/orderdetail", function(req, res) {
+      db.OrderDetail.create(req.body).then(function(d) {
+        res.status(200).json({});
+      });
+    });
   // Delete an example by id
   // app.get("/api/users/:id", function(req, res) {
   //   db.User.findOne({ where: { id: req.params.id } }).then(function(dbExample) {

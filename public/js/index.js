@@ -12,9 +12,12 @@ var $groupName = $("#groupName");
 var $orderDate = $("#orderDate");
 var $restaurant = $("#restaurant");
 var $runner = $("#runner");
+var $menuItem = $("#menuItem");
+var $specialRequest = $("#specialRequest");
 var $newUserButton = $("#newUserButton");
-var $newUserSubmitBtn = $("#newUserSubmitBtn")
-var $newOrderButton = $("#newOrderButton")
+var $newUserSubmitBtn = $("#newUserSubmitBtn");
+var $newOrderButton = $("#newOrderButton");
+var $addToOrderBtn = $("#addToOrderBtn")
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -38,6 +41,16 @@ var API = {
       data: JSON.stringify(orderGroup)
     });
   },
+  addToOrder: function(orderDetail) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/orderdetail",
+      data: JSON.stringify(orderDetail)
+    });
+  },
   getUsers: function() {
     return $.ajax({
       url: "api/users",
@@ -58,7 +71,7 @@ var API = {
   }
 };
 
-// refreshExamples gets new examples from the db and repopulates the list
+//refreshExamples gets new examples from the db and repopulates the list
 var refreshUser = function() {
   API.getUsers().then(function(data) {
     var $user = data.map(function(user) {
@@ -87,33 +100,33 @@ var refreshUser = function() {
   });
 };
 
-var refreshOrderGroup = function() {
-  API.getOrderGroups().then(function(data) {
-    var $orderGroup = data.map(function(orderGroup) {
-      var $a = $("<a>")
-        .text(orderGroup.groupname)
-        .attr("href", "/example/" + orderGroup.id);
+// var refreshOrderGroup = function() {
+//   API.getOrderGroups().then(function(data) {
+//     var $orderGroup = data.map(function(orderGroup) {
+//       var $a = $("<a>")
+//         .text(orderGroup.groupname)
+//         .attr("href", "/example/" + orderGroup.id);
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": orderGroup.id
-        })
-        .append($a);
+//       var $li = $("<li>")
+//         .attr({
+//           class: "list-group-item",
+//           "data-id": orderGroup.id
+//         })
+//         .append($a);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
+//       var $button = $("<button>")
+//         .addClass("btn btn-danger float-right delete")
+//         .text("ｘ");
 
-      $li.append($button);
+//       $li.append($button);
 
-      return $li;
-    });
+//       return $li;
+//     });
 
-    $exampleList.empty();
-    $exampleList.append($orderGroup);
-  });
-};
+//     $exampleList.empty();
+//     $exampleList.append($orderGroup);
+//   });
+// };
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var newUserSubmit = function(event) {
@@ -173,6 +186,29 @@ var orderGroupSubmit = function(event) {
     $runner.val("");
 };
 
+var addOrderLine = function(event) {
+  event.preventDefault();
+
+  var orderDetail = {
+    
+    menuitem: $menuItem.val().trim(),
+    specialrequest: $specialRequest.val().trim(),
+  };
+
+  // if (!orderGroup.ordername) {
+  //   alert("You must enter an order name!");
+  //   return;
+  // }
+
+  API.addToOrder(orderDetail)
+    .then(function(res) {
+      location.reload();
+  });
+
+    $menuItem.val("");
+    $specialRequest.val("");
+};
+
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
 var handleDeleteBtnClick = function() {
@@ -192,3 +228,6 @@ $newUserSubmitBtn.on("click", newUserSubmit);
 
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
 $newOrderButton.on("click", orderGroupSubmit);
+//adds order details to the SQL database
+$addToOrderBtn.on("click", addOrderLine);
+// $addToOrderBtn.on("click", alert("clicked"));

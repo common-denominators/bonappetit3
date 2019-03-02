@@ -12,18 +12,18 @@ module.exports = function (sequelize, DataTypes) {
         }
     })
 
-    // OrderDetail.associate = function (models) {
-    //     OrderDetail.belongsTo(models.OrderGroup, {
-    //         foreignKey: {
-    //             allowNull: false
-    //         }
-    //     });
-    //     OrderDetail.hasMany(models.User, {
-    //         foreignKey: {
-    //             allowNull: false
-    //         }
-    //     })
-    // }
+    OrderDetail.associate = function (models) {
+        OrderDetail.belongsTo(models.OrderGroup, {
+            foreignKey: {
+                allowNull: true
+            }
+        });
+        OrderDetail.hasMany(models.User, {
+            foreignKey: {
+                allowNull: true
+            }
+        })
+    }
 
     return OrderDetail;
 }
