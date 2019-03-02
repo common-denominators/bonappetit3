@@ -15,8 +15,8 @@ module.exports = function(app) {
   });
   //Create a new order Group
   app.post("/api/order", function(req, res) {
-    db.OrderGroup.create(req.body).then(function(dbOrders) {
-      res.json(dbOrders);
+    db.OrderGroup.create(req.body).then(function({dataValues}) {
+      res.status(200).json({});
     });
   });
 

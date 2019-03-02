@@ -29,7 +29,7 @@
         <ul id="order-detail-list" class="list-group">
           {{#each ordergroup}}
           <li data-id="{{this.id}}" class="list-group-item">
-            <a href="order/{{this.id}}">{{this.ordername}}{{this.orderDate}}</a>
+            <a href="order/{{this.id}}">{{this.ordername}}</a>
             <button class="btn btn-danger float-right delete">ｘ</button>
           </li>
           {{/each}}

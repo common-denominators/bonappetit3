@@ -44,6 +44,12 @@ var API = {
       type: "GET"
     });
   },
+  getOrderGroups: function() {
+    return $.ajax({
+      url: "api/order",
+      type: "GET"
+    })
+  },
   deleteExample: function(id) {
     return $.ajax({
       url: "api/users/" + id,
@@ -81,6 +87,33 @@ var refreshUser = function() {
   });
 };
 
+var refreshOrderGroup = function() {
+  API.getOrderGroups().then(function(data) {
+    var $orderGroup = data.map(function(orderGroup) {
+      var $a = $("<a>")
+        .text(orderGroup.groupname)
+        .attr("href", "/example/" + orderGroup.id);
+
+      var $li = $("<li>")
+        .attr({
+          class: "list-group-item",
+          "data-id": orderGroup.id
+        })
+        .append($a);
+
+      var $button = $("<button>")
+        .addClass("btn btn-danger float-right delete")
+        .text("ｘ");
+
+      $li.append($button);
+
+      return $li;
+    });
+
+    $exampleList.empty();
+    $exampleList.append($orderGroup);
+  });
+};
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var newUserSubmit = function(event) {
@@ -129,8 +162,9 @@ var orderGroupSubmit = function(event) {
     return;
   }
 
-  API.saveOrderGroup(orderGroup).then(function() {
-    // refreshUser();
+  API.saveOrderGroup(orderGroup)
+    .then(function(res) {
+      location.reload();
   });
 
     $groupName.val("");

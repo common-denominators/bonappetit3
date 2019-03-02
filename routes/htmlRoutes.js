@@ -29,9 +29,18 @@ module.exports = function(app) {
     });
   });
 
+   //pull up a specific order profile, where the order create button is.
+   app.get("/orders/:id", function(req, res) {
+    db.OrderGroup.findOne({ where: { id: req.params.id } }).then(function(dbOrders) {
+      res.render("orderdetail", {
+        ordergroup: dbOrders
+      });
+    });
+  });
+
   //create order page, then click to go to add individual users orders.
   app.get("/order", function(req, res) {
-    db.User.findAll({}).then(function(dborders) {
+    db.OrderGroup.findAll({}).then(function(dborders) {
       res.render("order", {
         ordergroup: dborders
       });
