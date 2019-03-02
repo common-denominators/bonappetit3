@@ -9,8 +9,8 @@
               placeholder="Enter Example Text">
           </div>
           <div class="form-group">
-            <label for="example-text">Date</label>
-            <input type="text" id="date" class="form-control" aria-describedby="example-text"
+            <label for="example-text">Order Date</label>
+            <input type="text" id="orderDate" class="form-control" aria-describedby="example-text"
               placeholder="Enter Example Text">
           </div>
           <div class="form-group">
@@ -23,13 +23,13 @@
             <input type="text" id="runner" class="form-control" aria-describedby="example-text"
               placeholder="Enter Example Text">
           </div>
-              <button id="orderSubmit" class="btn btn-primary float-right">Submit</button>
+              <button id="newOrderButton" class="btn btn-primary float-right">Submit</button>
         </form>
         <h3>Order Details:</h3>
         <ul id="order-detail-list" class="list-group">
           {{#each ordergroup}}
           <li data-id="{{this.id}}" class="list-group-item">
-            <a href="users/{{this.id}}">{{this.username}}</a>
+            <a href="order/{{this.id}}">{{this.ordername}}{{this.orderDate}}</a>
             <button class="btn btn-danger float-right delete">ｘ</button>
           </li>
           {{/each}}

@@ -1,7 +1,7 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  // Load index page
+  // Load Homepage where new users button is.
   app.get("/", function(req, res) {
     db.User.findAll({}).then(function(dbExamples) {
       res.render("home", {
@@ -11,6 +11,7 @@ module.exports = function(app) {
     });
   });
 
+  //New users page where a new user can be added and already added users are displayed
   app.get("/newuser", function(req, res) {
     db.User.findAll({}).then(function(dbExamples) {
       res.render("newuser", {
@@ -19,19 +20,20 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/order", function(req, res) {
-    db.User.findAll({}).then(function(dbExamples) {
-      res.render("order", {
-        users: dbExamples
-      });
-    });
-  });
-
-  // Load example page and pass in an example by id
+  //pull up a specific users profile, where the order create button is.
   app.get("/users/:id", function(req, res) {
     db.User.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
       res.render("profile", {
         users: dbExample
+      });
+    });
+  });
+
+  //create order page, then click to go to add individual users orders.
+  app.get("/order", function(req, res) {
+    db.User.findAll({}).then(function(dborders) {
+      res.render("order", {
+        ordergroup: dborders
       });
     });
   });

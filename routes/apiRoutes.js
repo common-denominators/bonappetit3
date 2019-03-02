@@ -6,20 +6,14 @@ module.exports = function(app) {
       res.json(result);
     })
   })
-  // Get all examples
-  // app.get("/api/users", function(req, res) {
-  //   db.User.findAll({}).then(function(dbExamples) {
-  //     res.json(dbExamples);
-  //   });
-  // });
 
-  // Create a new example
+  // Create a new user
   app.post("/api/users", function(req, res) {
     db.User.create(req.body).then(function(dbUsers) {
       res.json(dbUsers);
     });
   });
-
+  //Create a new order Group
   app.post("/api/order", function(req, res) {
     db.OrderGroup.create(req.body).then(function(dbOrders) {
       res.json(dbOrders);

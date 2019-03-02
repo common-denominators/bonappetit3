@@ -9,7 +9,7 @@ var $passwordConfirm = $("#passwordConfirm");
 var $submitBtn = $("#newUserSubmit");
 var $exampleList = $("#example-list");
 var $groupName = $("#groupName");
-var $date = $("#date");
+var $orderDate = $("#orderDate");
 var $restaurant = $("#restaurant");
 var $runner = $("#runner");
 var $newUserButton = $("#newUserButton");
@@ -38,7 +38,7 @@ var API = {
       data: JSON.stringify(orderGroup)
     });
   },
-  getExamples: function() {
+  getUsers: function() {
     return $.ajax({
       url: "api/users",
       type: "GET"
@@ -54,7 +54,7 @@ var API = {
 
 // refreshExamples gets new examples from the db and repopulates the list
 var refreshUser = function() {
-  API.getExamples().then(function(data) {
+  API.getUsers().then(function(data) {
     var $user = data.map(function(user) {
       var $a = $("<a>")
         .text(user.username)
@@ -130,7 +130,7 @@ var orderGroupSubmit = function(event) {
   }
 
   API.saveOrderGroup(orderGroup).then(function() {
-    refreshUser();
+    // refreshUser();
   });
 
     $groupName.val("");
