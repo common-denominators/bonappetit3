@@ -40,18 +40,66 @@ module.exports = function (app) {
 
   //pull up a specific order profile, where the order create button is.
   app.get("/order/:id", function (req, res) {
-    db.OrderGroup.findOne({ where: { id: req.params.id } }).then(function (dbOrders) {
-      res.render("orderdetails", {
-        ordergroup: dbOrders
-      });
-    });
-    // db.User.findAll({}).then(function(dbUsers) {
-    //   res.render("orderdetails", {
-    //     users: dbUsers
-    //   })
-    // })
+    db.OrderDetail.findOne({
+      // where: { id: req.params.id },
+      // include: [
+      //   {
+      //     model: db.OrderGroup
+      //   },
+      //   {
+      //     model: db.User
+      //   }
+      // ]
 
-  });
+    })
+    .then(function (x) {
+      // console.log(x);
+      // var resObj = x.map(function (OrderDetail) {
+      //   return Object.assign(
+      //     {},
+      //     {
+      //       menuitem: OrderDetail.menuitem,
+      //       specialrequest: OrderDetail.specialrequest,
+      //       ordergroup: OrderDetail.OrderGroup.map(function (OrderGroup) {
+      //         return Object.assign(
+      //           {},
+      //           {
+      //             ordername: OrderGroup.ordername,
+      //             users: OrderDetail.User.map(function (Users) {
+      //               return Object.assign(
+      //                 {},
+      //                 {
+      //                   username: User.username
+      //                 }
+      //               )
+      //               { }
+
+      //             })
+
+      //           }
+      //         )
+      //       })
+      //     }
+
+      // )
+      })
+      // // db.User.findAll({}).then(function (users){
+      // // var table = (orderGroup);
+      // // console.log(orderGroup.dataValues);
+      res.render("orderdetails", {
+        // ordergroup:
+        // users:
+        });
+      });
+      // console.log(resObj);
+      // });
+      // db.User.findAll({}).then(function(dbUsers) {
+      //   res.render("orderdetails", {
+      //     users: dbUsers
+      //   })
+      // })
+
+    // });
 
 
 

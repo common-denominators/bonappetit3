@@ -71,34 +71,34 @@ var API = {
   }
 };
 
-//refreshExamples gets new examples from the db and repopulates the list
-var refreshUser = function() {
-  API.getUsers().then(function(data) {
-    var $user = data.map(function(user) {
-      var $a = $("<a>")
-        .text(user.username)
-        .attr("href", "/example/" + user.id);
+// //refreshExamples gets new examples from the db and repopulates the list
+// var refreshUser = function() {
+//   API.getUsers().then(function(data) {
+//     var $user = data.map(function(user) {
+//       var $a = $("<a>")
+//         .text(user.username)
+//         .attr("href", "/example/" + user.id);
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": user.id
-        })
-        .append($a);
+//       var $li = $("<li>")
+//         .attr({
+//           class: "list-group-item",
+//           "data-id": user.id
+//         })
+//         .append($a);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
+//       var $button = $("<button>")
+//         .addClass("btn btn-danger float-right delete")
+//         .text("ｘ");
 
-      $li.append($button);
+//       $li.append($button);
 
-      return $li;
-    });
+//       return $li;
+//     });
 
-    $exampleList.empty();
-    $exampleList.append($user);
-  });
-};
+//     $exampleList.empty();
+//     $exampleList.append($user);
+//   });
+// };
 
 // var refreshOrderGroup = function() {
 //   API.getOrderGroups().then(function(data) {
@@ -147,8 +147,10 @@ var newUserSubmit = function(event) {
     return;
   }
 
-  API.saveUser(user).then(function() {
-    refreshUser();
+  API.saveUser(user)
+  .then(function(res) {
+    location.reload();
+    // refreshUser();
   });
 
     $username.val("");
@@ -231,3 +233,6 @@ $newOrderButton.on("click", orderGroupSubmit);
 //adds order details to the SQL database
 $addToOrderBtn.on("click", addOrderLine);
 // $addToOrderBtn.on("click", alert("clicked"));
+
+//Create an object that will store the response for handlebars
+ 

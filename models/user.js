@@ -51,6 +51,14 @@ module.exports = function (sequelize, DataTypes) {
     })
 
     // User.associate = function(models) {
+    //     User.belongsTo(models.OrderDetail, {
+    //         forgeingKey: {
+    //             allowNull: false
+    //         }
+    //     })
+    // }
+
+    // User.associate = function(models) {
     //     User.hasMany(models.Group, {
     //         foreignKey: {
     //             allowNull: false
