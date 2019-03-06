@@ -4,7 +4,7 @@ module.exports = function (app) {
   // Load Homepage where new users button is.
   app.get("/", function (req, res) {
     db.User.findAll({}).then(function (dbExamples) {
-      res.render("home", {
+      res.render("index", {
         msg: "This is the Homepage!",
         users: dbExamples
       });
