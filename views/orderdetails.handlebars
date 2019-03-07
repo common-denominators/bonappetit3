@@ -1,8 +1,13 @@
 <div id="home">
-  <div class="container">
+  <div class="container col-8 offset-2">
     <h1>Order Details</h1>
 
     <form class="clearfix mb-4" action="POST">
+      <div class="form-group">
+        <label for="example-text">First Name</label>
+        <input type="text" id="menuItem" class="form-control" aria-describedby="example-text"
+          placeholder="Enter Example Text">
+      </div>
       <div class="form-group">
         <label for="example-text">Menu Item</label>
         <input type="text" id="menuItem" class="form-control" aria-describedby="example-text"
@@ -15,6 +20,9 @@
       </div>
 
       <button id="addToOrderBtn" class="btn btn-primary float-right">Add to Order</button>
+      <br>
+      <button id="finalOrderBtn" type="button" class="btn btn-success btn-lg btn-block p-2">Block level button</button>
+
     </form>
   </div>
 </div>

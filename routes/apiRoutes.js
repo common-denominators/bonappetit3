@@ -22,7 +22,7 @@ module.exports = function(app) {
 
     //Create a new order detail
     app.post("/api/orderdetail", function(req, res) {
-      db.OrderDetail.create(req.body).then(function(d) {
+      db.OrderDetail.create(req.body).then(function() {
         res.status(200).json({});
       });
     });
